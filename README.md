@@ -1,6 +1,7 @@
 # Country Analytics Reports w/ Quarto
 
 ![Report](images/report-sample.png)
+![NPL report](outputs/NPL.pdf)
 
 ## Overview
 
