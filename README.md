@@ -1,17 +1,14 @@
 # Country Analytics Reports w/ Quarto
 
 ![Report](images/report-sample.png)
-![NPL report](outputs/NPL.pdf)
 
 ## Overview
 
 Quarto is an open-source publishing system for websites, dashboards, reports, presentations, and more. This repository contains country analytics reports created with Quarto and Python.
 
-🎥 Check out the corresponding YouTube video: [Watch here](https://youtu.be/dQw4w9WgXcQ?si=dPBNv-5YEO27OssV).
-
 📄 Sample Reports:  
+- [Nepal](./outputs/NPL.pdf)  
 - [USA](./outputs/USA.pdf)  
-- [India](./outputs/IND.pdf)  
 - [Argentina](./outputs/ARG.pdf)  
 
 ## Setup
