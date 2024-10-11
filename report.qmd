@@ -1,0 +1,100 @@
+---
+title: "Country Analytics Report"
+subtitle: "Nepal"
+author: "Samrat Adhikari"
+echo: False
+error: False
+warning: False
+engine: jupyter
+format:
+    typst:
+        template-partials: 
+            - typst-show.typ
+            - typst-template.typ
+
+# metadata parameters
+country_code: "NPL"
+color: "024CAA"
+---
+```{python}
+#| tags: [parameters]
+color = "#024CAA"
+country_code = 'NPL'
+zoom = 1.2
+```
+
+```{python}
+import pandas as pd
+from report_helpers import plot_country, population_over_time, gender_ratio, plot_ages, get_country_stat, highlight_text
+
+# Load both data files
+df_un = pd.read_csv('./data/un-country-data.csv', low_memory=False)
+df_wb = pd.read_csv('./data/worldbank-country-data.csv', low_memory=False)
+
+# Filter by country code
+df_country_un = df_un[df_un['ISO3_code'] == country_code]
+df_country_wb = df_wb[df_wb['Country Code'] == country_code]
+
+# Set the index to Year
+df_country_un.set_index('Time', inplace=True)
+```
+
+```{python}
+plot_country(country_code, zoom_factor=zoom, color=color)  # For United States
+```
+
+```{=typst}
+#v(-20pt)
+```
+
+:::: {layout="[0.33, 0.66]"}
+
+::: {#firstcol}
+
+---
+
+```{python}
+pop_thousands = get_country_stat(df_country_un, column_name='TPopulation1July') # In thousands
+population = pop_thousands * 1000
+highlight_text(f"{population:,}", 'Population', color=color)
+```
+---
+
+```{python}
+gender_ratio(df_country_un, color=color)
+```
+
+---
+```{python}
+age = get_country_stat(df_country_un, column_name='MedianAgePop')
+
+highlight_text(str(age), 'Median Age', color=color)
+```
+
+---
+```{python}
+life_expectancy = get_country_stat(df_country_un, column_name='LEx')
+
+highlight_text(str(life_expectancy), 'Life Expectancy', color=color)
+```
+
+:::
+
+::: {#secondcol}
+
+```{python}
+#| fig-align: left
+#| fig-cap: "Population over time"
+population_over_time(df_country_un, color=color)
+```
+---
+
+```{python}
+#| fig-align: left
+#| fig-cap: "Age Distribution"
+plot_ages(df_country_wb, color=color)
+```
+
+:::
+
+::::
